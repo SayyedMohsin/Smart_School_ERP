@@ -1,6 +1,12 @@
-# 🏫  School - ERP System
+# # 🏫 SCHOOL PROFESSIONAL - ERP System
 
-![School ERP Banner](static/images/school.png)
+![School ERP Banner](screenshots/login.png)
+
+### 🌐 **LIVE DEMO:** [Click Here to Open App](https://smohsin.pythonanywhere.com/)
+> **Username:** `admin`  
+> **Password:** `admin123`
+
+---
 
 A comprehensive, professional **School Management System (ERP)** built with **Python Flask**. This application is designed to manage Students, Staff, Fees, and Financial Reporting with a modern, responsive, and secure interface.
 
@@ -44,10 +50,6 @@ A comprehensive, professional **School Management System (ERP)** built with **Py
 ---
 
 ## 📸 Project Screenshots
-
-### 1. Futuristic 3D Login Panel
-Secure admin access with interactive 3D background.
-![Login Page](screenshots/login.png)
 
 ### 2. Professional Admin Dashboard
 An overview of students, staff, and financial stats with quick actions.
