@@ -43,9 +43,23 @@ A comprehensive, professional **School Management System (ERP)** built with **Py
 
 ---
 
-## 📸 Screenshots
+## 📸 Project Screenshots
 
-*(You can add screenshots of your dashboard here later)*
+### 1. Futuristic 3D Login Panel
+Secure admin access with interactive 3D background.
+![Login Page](screenshots/login.png)
+
+### 2. Professional Admin Dashboard
+An overview of students, staff, and financial stats with quick actions.
+![Dashboard](screenshots/dashboard.png)
+
+### 3. Student Management Directory
+Manage admissions with a Tally-style list view and Excel export.
+![Student List](screenshots/students.png)
+
+### 4. Fee Collection & Accounting
+Manage fees (School/Bus) and generate instant receipts.
+![Accounting](screenshots/accounting.png)
 
 ---
 
@@ -53,7 +67,7 @@ A comprehensive, professional **School Management System (ERP)** built with **Py
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/YourUsername/School-ERP.git](https://github.com/YourUsername/School-ERP.git)
+   git clone [https://github.com/YourUsername/School-ERP.git](https://github.com/SayyedMohsin/Smart_School_ERP.git)
 
 
 2. ## Navigate to the project directory:
