@@ -56,24 +56,25 @@ A comprehensive, professional **School Management System (ERP)** built with **Py
    git clone [https://github.com/YourUsername/School-ERP.git](https://github.com/YourUsername/School-ERP.git)
 
 
-2. **Navigate to the project directory:**
+2. ## Navigate to the project directory:
 
-cd School-ERP
+ - **cd School-ERP**
 
-3. **Install dependencies:**
+3. ## Install dependencies:
 
-pip install flask
+- **pip install flask**
 
-4. **Run the application:**
+4. ## Run the application:
 
-python app.py
+- **python app.py**
 
-5. **Access the App:**
+5. ## Access the App:
 
-Open your browser and go to: http://localhost:5000
-Username: admin
-Password: admin123
+- **Open your browser and go to: http://localhost:5000**
+  
+- **Username: admin**
+- **Password: admin123**
 
 👨‍💻 Developer
-Developed by Sayyed Mohsin Ali 
-Professional School ERP Solution
+- **Developed by Sayyed Mohsin Ali**
+- **Professional School ERP Solution**
