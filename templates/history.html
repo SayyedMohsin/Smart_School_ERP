@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="page-head">
+    <h2>📜 Deleted Records History</h2>
+    <small>Restore or View Deleted Data</small>
+</div>
+
+<div class="form-box" style="margin-bottom: 30px; border-top: 4px solid #c0392b;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+        <h3 style="margin:0; color:#c0392b;">Deleted Students</h3>
+        <button onclick="exportTable('delStudTable', 'Deleted_Students')" class="btn btn-green"><i class="fas fa-file-excel"></i> Download Excel</button>
+    </div>
+    
+    <table id="delStudTable">
+        <thead>
+            <tr style="background:#c0392b;">
+                <th style="background:#c0392b;">Name</th>
+                <th style="background:#c0392b;">Class</th>
+                <th style="background:#c0392b;">Snapshot Info</th>
+                <th style="background:#c0392b;">Deleted By</th>
+                <th style="background:#c0392b;">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in records %}{% if r.type == 'Student' %}
+            <tr>
+                <td><b>{{ r.name }}</b></td>
+                <td>{{ r.class_name }}</td>
+                <td style="font-size:12px;">{{ r.info }}</td>
+                <td>{{ r.deleted_by }}</td>
+                <td>{{ r.date }}</td>
+            </tr>
+            {% endif %}{% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="form-box" style="border-top: 4px solid #e67e22;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+        <h3 style="margin:0; color:#e67e22;">Deleted Staff</h3>
+        <button onclick="exportTable('delStaffTable', 'Deleted_Staff')" class="btn btn-green"><i class="fas fa-file-excel"></i> Download Excel</button>
+    </div>
+    
+    <table id="delStaffTable">
+        <thead>
+            <tr style="background:#e67e22;">
+                <th style="background:#e67e22;">Name</th>
+                <th style="background:#e67e22;">Post</th>
+                <th style="background:#e67e22;">Info</th>
+                <th style="background:#e67e22;">Deleted By</th>
+                <th style="background:#e67e22;">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in records %}{% if r.type == 'Teacher' %}
+            <tr>
+                <td><b>{{ r.name }}</b></td>
+                <td>{{ r.class_name }}</td>
+                <td style="font-size:12px;">{{ r.info }}</td>
+                <td>{{ r.deleted_by }}</td>
+                <td>{{ r.date }}</td>
+            </tr>
+            {% endif %}{% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

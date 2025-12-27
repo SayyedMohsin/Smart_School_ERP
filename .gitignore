@@ -1,0 +1,18 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+env/
+
+# Database (Agar aap chahte hain ki aapka personal data upload na ho to isse rakhein, warna hata dein)
+# school_data.db
+
+# Uploads folder (Images user ki hain, ise usually ignore karte hain par demo ke liye rakh sakte hain)
+# static/uploads/
+
+# IDE settings
+.vscode/
+.idea/

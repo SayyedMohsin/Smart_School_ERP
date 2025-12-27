@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Secure Login - Khatib School</title>
+    <style>
+        body { margin: 0; overflow: hidden; font-family: 'Segoe UI', sans-serif; background: #0b0d17; }
+        #bg-canvas { position: absolute; width: 100%; height: 100%; z-index: 1; }
+        .login-box {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 360px; padding: 40px; text-align: center; z-index: 10;
+            background: rgba(26, 82, 118, 0.7); /* Deep Blue Transparent */
+            backdrop-filter: blur(15px); border-radius: 15px;
+            border: 1px solid rgba(244, 208, 63, 0.3); /* Gold Border */
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
+        .logo-area { width: 100px; height: 100px; margin: 0 auto 15px; border-radius: 50%; background: #000; overflow: hidden; border: 3px solid #f4d03f; }
+        h2 { color: #f4d03f; text-transform: uppercase; margin: 10px 0 5px; font-size: 20px; letter-spacing: 1px; }
+        p { color: #ccc; font-size: 12px; margin-bottom: 25px; }
+        
+        input { width: 100%; padding: 12px; margin: 8px 0; background: rgba(255,255,255,0.9); border: none; border-radius: 5px; box-sizing: border-box; text-align: center; }
+        button { width: 100%; padding: 12px; margin-top: 15px; background: #f4d03f; color: #1a5276; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; text-transform: uppercase; }
+        button:hover { background: #fff; }
+        .error { color: #ff6b6b; font-size: 13px; font-weight: bold; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div id="bg-canvas"></div>
+    <div class="login-box">
+        <div class="logo-area" id="3d-logo"></div> <h2>Admin Portal</h2>
+        <p>SCHOOL PROFESSIONAL ERP</p>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %} <div class="error">⚠️ {{ messages[0] }}</div> {% endif %}
+        {% endwith %}
+        <form method="POST">
+            <input type="text" name="username" placeholder="Username" required autocomplete="off">
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Secure Login</button>
+        </form>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Simple 3D Starfield & Logo Logic (Simplified for stability)
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({alpha:true});
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('bg-canvas').appendChild(renderer.domElement);
+        
+        const starsGeo = new THREE.BufferGeometry();
+        const count = 1000; const pos = new Float32Array(count*3);
+        for(let i=0; i<count*3; i++) pos[i]=(Math.random()-0.5)*20;
+        starsGeo.setAttribute('position', new THREE.BufferAttribute(pos,3));
+        const stars = new THREE.Points(starsGeo, new THREE.PointsMaterial({color:0xf4d03f, size:0.03}));
+        scene.add(stars); camera.position.z=5;
+
+        // Mini Logo Scene
+        const logoScene = new THREE.Scene();
+        const logoCam = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
+        const logoRender = new THREE.WebGLRenderer({alpha:true, antialias:true});
+        logoRender.setSize(100,100);
+        document.getElementById('3d-logo').appendChild(logoRender.domElement);
+        const ico = new THREE.Mesh(new THREE.IcosahedronGeometry(1.5,0), new THREE.MeshBasicMaterial({color:0xf4d03f, wireframe:true}));
+        logoScene.add(ico); logoCam.position.z=4;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            stars.rotation.y += 0.001; 
+            renderer.render(scene, camera);
+            ico.rotation.x+=0.01; ico.rotation.y+=0.02;
+            logoRender.render(logoScene, logoCam);
+        }
+        animate();
+    </script>
+</body>
+</html>

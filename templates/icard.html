@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .icard { width: 3.375in; height: 2.125in; border: 2px solid #2c3e50; border-radius: 10px; padding: 10px; position: relative; font-family: sans-serif; overflow: hidden; }
+        .header { background: #2c3e50; color: white; text-align: center; font-size: 12px; margin: -10px -10px 10px -10px; padding: 5px; }
+        .photo { width: 70px; height: 70px; object-fit: cover; border-radius: 5px; border: 1px solid #ddd; float: left; }
+        .details { margin-left: 85px; font-size: 10px; }
+        .footer { position: absolute; bottom: 0; width: 100%; text-align: center; font-size: 8px; background: #eee; left: 0; padding: 3px; }
+        @media print { .no-print { display: none; } }
+    </style>
+</head>
+<body>
+    <button class="no-print" onclick="window.print()">Print I-Card</button>
+    <div class="icard">
+        <div class="header">YOUR SCHOOL NAME HERE</div>
+        <img src="/static/uploads/{{ data.photo }}" class="photo">
+        <div class="details">
+            <p><b>NAME:</b> {{ data.name }}</p>
+            <p><b>ID:</b> {{ data.roll_no if type=='student' else data.phone }}</p>
+            <p><b>CLASS:</b> {{ data.class_id if type=='student' else data.subject }}</p>
+            <p><b>BLOOD GRP:</b> {{ data.blood_group or 'N/A' }}</p>
+        </div>
+        <div class="footer">Valid till March 2026</div>
+    </div>
+</body>
+</html>

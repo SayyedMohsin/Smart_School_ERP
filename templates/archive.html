@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Archive</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        th { background: #c0392b; color: white; }
+        .btn-restore { background: #2980b9; color: white; padding: 5px 10px; text-decoration: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>📜 Safe Archive (Deleted Records)</h1>
+    <a href="/">Back to Dashboard</a>
+    <table border="1" width="100%" style="border-collapse: collapse; margin-top: 20px;">
+        <tr><th>Type</th><th>Name</th><th>Reason</th><th>Date</th><th>Action</th></tr>
+        {% for r in records %}
+        <tr>
+            <td>{{ r.type }}</td>
+            <td>{{ r.name }}</td>
+            <td>{{ r.info }}</td>
+            <td>{{ r.date }}</td>
+            <td><a href="/restore/{{ r.type }}/{{ r.original_id }}" class="btn-restore">Restore Data</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

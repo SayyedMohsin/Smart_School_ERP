@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="page-head">
+    <h2>📄 Student Profile</h2>
+    <a href="/students" class="btn" style="background-color: #555; color: white;"><i class="fas fa-arrow-left"></i> Back to List</a>
+</div>
+
+<div style="display: flex; gap: 30px; align-items: flex-start;">
+    
+    <div class="form-box" style="flex: 1; text-align: center; max-width: 300px;">
+        <img src="/static/uploads/{{ s.photo }}" style="width: 100%; max-width: 200px; border-radius: 8px; border: 5px solid #2c3e50; padding: 5px;">
+        <h2 style="color: #2c3e50; margin: 15px 0 5px 0;">{{ s.name }}</h2>
+        <p style="color: #7f8c8d; font-weight: bold; margin: 0;">Class: {{ s.class_name }}</p>
+        <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+        
+        <div style="background: #fdf2e9; padding: 15px; border-radius: 5px; border-left: 5px solid #e67e22;">
+            <small style="color: #e67e22; font-weight: bold;">TOTAL DUE AMOUNT</small>
+            <h1 style="margin: 5px 0; color: #d35400;">₹{{ s.total_due }}</h1>
+        </div>
+    </div>
+
+    <div style="flex: 2; width: 100%;">
+        
+        <div class="form-box" style="margin-bottom: 25px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 15px;">
+                <h3 style="margin-top: 0; color: #2c3e50; margin-bottom:0;">📌 Personal Information</h3>
+                <button onclick="exportTable('studentInfoTable', 'Student_Profile_{{s.name}}')" class="btn" style="background-color: #27ae60; color: white;">
+                    <i class="fas fa-file-excel"></i> Download Profile
+                </button>
+            </div>
+
+            <table id="studentInfoTable" style="box-shadow: none;">
+                <tr><td style="font-weight:bold; background:#f9f9f9; width:150px;">Student ID</td><td>S-{{ s.id }}</td><td style="font-weight:bold; background:#f9f9f9; width:150px;">DOB</td><td>{{ s.dob }}</td></tr>
+                <tr><td style="font-weight:bold; background:#f9f9f9;">Mobile</td><td>{{ s.mobile }}</td><td style="font-weight:bold; background:#f9f9f9;">Address</td><td>{{ s.address }}</td></tr>
+            </table>
+        </div>
+
+        <div class="form-box">
+            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 15px;">
+                <h3 style="margin: 0; color: #2c3e50;">💰 Fees Ledger</h3>
+                <button onclick="exportTable('ledgerTable', 'Student_Ledger_{{s.name}}')" class="btn" style="background-color: #2980b9; color: white;">
+                    <i class="fas fa-file-excel"></i> Download Ledger
+                </button>
+            </div>
+            
+            <table id="ledgerTable">
+                <thead><tr><th>Date</th><th>Receipt</th><th>Type</th><th>Mode</th><th>Paid</th></tr></thead>
+                <tbody>
+                    {% for t in trans %}
+                    <tr>
+                        <td>{{ t.date }}</td>
+                        <td>{{ t.receipt_no }}</td>
+                        <td>{{ t.fee_type }}</td>
+                        <td>{{ t.mode }}</td>
+                        <td style="color: #27ae60; font-weight: bold;">₹{{ t.amount }}</td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="5" align="center">No Transactions Yet</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

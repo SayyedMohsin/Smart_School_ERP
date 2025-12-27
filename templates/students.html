@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="page-head">
+    <div>
+        <h2>🎓 Student Master Directory</h2>
+        <small>Manage Admissions & Records</small>
+    </div>
+    <div style="display:flex; gap:10px;">
+        <button onclick="document.getElementById('addBox').style.display='block'" class="btn btn-blue">
+            <i class="fas fa-user-plus"></i> New Admission
+        </button>
+        <button onclick="exportTable('studentTable', 'Student_List')" class="btn btn-green">
+            <i class="fas fa-file-excel"></i> Export Excel
+        </button>
+    </div>
+</div>
+
+<div id="addBox" class="form-box" style="display:none; margin-bottom: 25px;">
+    <button onclick="document.getElementById('addBox').style.display='none'" style="float:right; border:none; background:none; font-size:20px; color:red; cursor:pointer;">&times;</button>
+    <h3 style="margin-top:0; color:var(--secondary);">New Student Admission</h3>
+    
+    <form action="/add_student" method="POST" enctype="multipart/form-data">
+        <div class="form-grid">
+            <div>
+                <label>Photo</label><input type="file" name="photo" required>
+                <label>Name</label><input type="text" name="name" required>
+                <label>Class</label><input type="text" name="class" required>
+                <label>DOB</label><input type="date" name="dob">
+            </div>
+            <div>
+                <label>Mobile</label><input type="text" name="mobile" required>
+                <label>Address</label><input type="text" name="address">
+                <div style="background:#eee; padding:10px; margin-top:5px; border-radius:5px;">
+                    <label>Fees:</label>
+                    <input type="number" name="school_fee" placeholder="School Fee" value="0">
+                    <input type="number" name="bus_fee" placeholder="Bus Fee" value="0">
+                    <input type="number" name="old_balance" placeholder="Old Bal" value="0">
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-green" style="width:100%; margin-top:15px; justify-content:center;">✅ SAVE RECORD</button>
+    </form>
+</div>
+
+<table id="studentTable">
+    <thead>
+        <tr>
+            <th>Photo</th><th>ID</th><th>Name</th><th>Class</th><th>Mobile</th><th>Due</th><th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for s in students %}
+        <tr>
+            <td><img src="/static/uploads/{{ s.photo }}" style="width:40px; height:40px; border-radius:4px;"></td>
+            <td>S-{{ s.id }}</td>
+            <td><b>{{ s.name }}</b></td>
+            <td>{{ s.class_name }}</td>
+            <td>{{ s.mobile }}</td>
+            <td style="color:var(--btn-red); font-weight:bold;">₹{{ s.total_due }}</td>
+            <td>
+                <a href="/student/{{ s.id }}" class="btn btn-blue" style="padding:5px 10px;"><i class="fas fa-eye"></i></a>
+                <a href="/edit_student/{{ s.id }}" class="btn btn-orange" style="padding:5px 10px;"><i class="fas fa-edit"></i></a>
+                <a href="/archive_it/Student/{{ s.id }}" class="btn btn-red" onclick="return confirm('Delete?')" style="padding:5px 10px;"><i class="fas fa-trash"></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

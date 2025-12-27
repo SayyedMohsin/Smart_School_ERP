@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="page-head">
+    <h2>👨‍🏫 Staff Profile</h2>
+    <a href="/teachers" class="btn" style="background-color: #555; color: white;"><i class="fas fa-arrow-left"></i> Back to List</a>
+</div>
+
+<div style="display: flex; gap: 30px; align-items: flex-start;">
+    
+    <div class="form-box" style="flex: 1; text-align: center; max-width: 300px;">
+        <img src="/static/uploads/{{ t.photo }}" style="width: 100%; max-width: 200px; border-radius: 8px; border: 5px solid #e67e22; padding: 5px;">
+        <h2 style="color: #2c3e50; margin: 15px 0 5px 0;">{{ t.name }}</h2>
+        <p style="color: #7f8c8d; font-weight: bold; margin: 0; text-transform: uppercase;">{{ t.post }}</p>
+        <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+        
+        <div style="background: #eaf2f8; padding: 15px; border-radius: 5px; border-left: 5px solid #2980b9;">
+            <small style="color: #2980b9; font-weight: bold;">STATUS</small>
+            <h3 style="margin: 5px 0; color: #1a5276;">ACTIVE STAFF</h3>
+        </div>
+    </div>
+
+    <div style="flex: 2; width: 100%;">
+        <div class="form-box">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px;">
+                <h3 style="margin:0; color:#2c3e50;">📌 Professional Details</h3>
+                <button onclick="exportTable('teacherDetails', 'Staff_{{t.name}}')" class="btn" style="background-color: #27ae60; color: white;">
+                    <i class="fas fa-file-excel"></i> Download Profile
+                </button>
+            </div>
+
+            <table id="teacherDetails" style="box-shadow: none;">
+                <tr>
+                    <td style="width: 150px; background: #f9f9f9; font-weight: bold;">Staff ID</td>
+                    <td>T-{{ t.id }}</td>
+                </tr>
+                <tr>
+                    <td style="background: #f9f9f9; font-weight: bold;">Designation</td>
+                    <td>{{ t.post }}</td>
+                </tr>
+                <tr>
+                    <td style="background: #f9f9f9; font-weight: bold;">Date of Birth</td>
+                    <td>{{ t.dob }}</td>
+                </tr>
+                <tr>
+                    <td style="background: #f9f9f9; font-weight: bold;">Mobile Number</td>
+                    <td>{{ t.mobile }}</td>
+                </tr>
+                <tr>
+                    <td style="background: #f9f9f9; font-weight: bold;">Email ID</td>
+                    <td>{{ t.email }}</td>
+                </tr>
+                <tr>
+                    <td style="background: #f9f9f9; font-weight: bold;">Residential Address</td>
+                    <td>{{ t.address }}</td>
+                </tr>
+            </table>
+            
+            <div style="margin-top:20px; text-align:right;">
+                <a href="/edit_teacher/{{ t.id }}" class="btn" style="background-color: #f39c12; color: white;"><i class="fas fa-edit"></i> Edit Profile</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

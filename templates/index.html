@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="page-head">
+    <h2>🚀 Dashboard Overview</h2>
+    <small>Session 2025-26 | <span style="color:#27ae60;">● System Active</span></small>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px;">
+    <div class="form-box" style="border-top: 5px solid #2980b9; cursor:pointer;" onclick="window.location='/students'">
+        <div style="display:flex; justify-content:space-between;">
+            <div><h4 style="margin:0; color:#7f8c8d;">ACTIVE STUDENTS</h4><h1 style="margin:5px 0; font-size:36px; color:#2c3e50;">{{ s_count }}</h1></div>
+            <i class="fas fa-user-graduate" style="font-size:45px; color:#d6eaf8;"></i>
+        </div>
+    </div>
+    <div class="form-box" style="border-top: 5px solid #f39c12; cursor:pointer;" onclick="window.location='/teachers'">
+        <div style="display:flex; justify-content:space-between;">
+            <div><h4 style="margin:0; color:#7f8c8d;">TEACHING STAFF</h4><h1 style="margin:5px 0; font-size:36px; color:#2c3e50;">{{ t_count }}</h1></div>
+            <i class="fas fa-chalkboard-teacher" style="font-size:45px; color:#fce5cd;"></i>
+        </div>
+    </div>
+    <div class="form-box" style="border-top: 5px solid #27ae60; cursor:pointer;" onclick="window.location='/accounting'">
+        <div style="display:flex; justify-content:space-between;">
+            <div><h4 style="margin:0; color:#7f8c8d;">FEES COLLECTED</h4><h1 style="margin:5px 0; font-size:36px; color:#27ae60;">₹{{ collected_fee }}</h1></div>
+            <i class="fas fa-wallet" style="font-size:45px; color:#d5f5e3;"></i>
+        </div>
+    </div>
+    <div class="form-box" style="border-top: 5px solid #c0392b;">
+        <div style="display:flex; justify-content:space-between;">
+            <div><h4 style="margin:0; color:#7f8c8d;">TOTAL DUE</h4><h1 style="margin:5px 0; font-size:36px; color:#c0392b;">₹{{ expected_fee }}</h1></div>
+            <i class="fas fa-exclamation-triangle" style="font-size:45px; color:#fadbd8;"></i>
+        </div>
+    </div>
+</div>
+
+<div style="margin-top:30px; display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+    <div class="form-box">
+        <h3><i class="fas fa-bolt" style="color:#f1c40f;"></i> Quick Actions</h3>
+        <div style="display:flex; gap:10px; margin-top:15px;">
+            <a href="/students" class="btn" style="flex:1; justify-content:center; padding:15px; background-color: #1a5276;">
+                <i class="fas fa-user-plus"></i> New Admission
+            </a>
+            <a href="/accounting" class="btn" style="flex:1; justify-content:center; padding:15px; background-color: #d35400;">
+                <i class="fas fa-rupee-sign"></i> Collect Fees
+            </a>
+        </div>
+    </div>
+    <div class="form-box">
+        <h3><i class="fas fa-server" style="color:#2980b9;"></i> System Status</h3>
+        <p>✅ Database Connected Successfully</p>
+        <p>✅ Secure Login Active</p>
+        <p>✅ Daily Backups Ready</p>
+    </div>
+</div>
+
+{% endblock %}

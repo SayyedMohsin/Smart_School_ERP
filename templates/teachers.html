@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="page-head">
+    <div>
+        <h2><i class="fas fa-users-cog"></i> Staff Master Directory</h2>
+        <small>Teachers & Office Staff Records</small>
+    </div>
+    <div style="display:flex; gap:10px;">
+        <button onclick="document.getElementById('addTBox').style.display='block'" class="btn" style="background:#1a5276;">
+            <i class="fas fa-plus"></i> Add New Staff
+        </button>
+        <button onclick="exportTable('staffTable', 'Staff_List')" class="btn" style="background:#27ae60;">
+            <i class="fas fa-file-excel"></i> Export Excel
+        </button>
+    </div>
+</div>
+
+<div id="addTBox" class="form-box" style="display:none; margin-bottom: 25px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px;">
+        <h3 style="margin:0; color:#2c3e50;">📝 New Staff Registration</h3>
+        <button onclick="document.getElementById('addTBox').style.display='none'" style="background:none; border:none; color:red; font-size:18px; cursor:pointer;">&times;</button>
+    </div>
+    
+    <form action="/add_teacher" method="POST" enctype="multipart/form-data">
+        <div class="form-grid">
+            <div>
+                <div class="form-group"><label class="form-label">Photo *</label><input type="file" name="photo" class="form-input" required></div>
+                <div class="form-group"><label class="form-label">Staff Name *</label><input type="text" name="name" class="form-input" required></div>
+                <div class="form-group"><label class="form-label">Post/Designation *</label><input type="text" name="post" class="form-input" placeholder="e.g. Math Teacher" required></div>
+            </div>
+            <div>
+                <div class="form-group"><label class="form-label">Mobile *</label><input type="text" name="mobile" class="form-input" required></div>
+                <div class="form-group"><label class="form-label">Date of Birth</label><input type="date" name="dob" class="form-input"></div>
+                <div class="form-group"><label class="form-label">Address</label><input type="text" name="address" class="form-input"></div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:15px; padding:12px;">✅ REGISTER STAFF</button>
+    </form>
+</div>
+
+<table id="staffTable">
+    <thead>
+        <tr><th>Photo</th><th>ID</th><th>Name</th><th>Post</th><th>Mobile</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+        {% for t in teachers %}
+        <tr>
+            <td style="width:60px;"><img src="/static/uploads/{{ t.photo }}" style="width:40px; height:40px; border-radius:4px; border:1px solid #ccc;"></td>
+            <td><b>T-{{ t.id }}</b></td>
+            <td>{{ t.name }}</td>
+            <td><span style="background:#fef9e7; padding:2px 6px; border-radius:3px; font-weight:bold; color:#f39c12;">{{ t.post }}</span></td>
+            <td>{{ t.mobile }}</td>
+            <td>
+                <a href="/teacher/{{ t.id }}" class="btn" style="background:#17a2b8; padding:6px 10px;"><i class="fas fa-eye"></i></a>
+                <a href="/edit_teacher/{{ t.id }}" class="btn" style="background:#ffc107; color:black !important; padding:6px 10px;"><i class="fas fa-edit"></i></a>
+                <a href="/archive_it/Teacher/{{ t.id }}" class="btn" style="background:#dc3545; padding:6px 10px;" onclick="return confirm('Delete?')"><i class="fas fa-trash"></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

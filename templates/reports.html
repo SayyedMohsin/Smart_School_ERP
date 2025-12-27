@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="page-head">
+    <div>
+        <h2>📅 Smart Financial Reports</h2>
+        <small>Select Date Range to View & Download Data</small>
+    </div>
+</div>
+
+<div class="form-box" style="margin-bottom: 25px; border-top: 4px solid #f39c12;">
+    <form method="POST" style="display:flex; gap:20px; align-items:flex-end;">
+        <div style="flex:1;">
+            <label>Start Date (From):</label>
+            <input type="date" name="start_date" required value="{{ s_date }}">
+        </div>
+        <div style="flex:1;">
+            <label>End Date (To):</label>
+            <input type="date" name="end_date" required value="{{ e_date }}">
+        </div>
+        <div style="flex:0.5;">
+            <button type="submit" class="btn" style="width:100%; padding:12px; background-color: #2980b9; color: white;">
+                <i class="fas fa-search"></i> Show Report
+            </button>
+        </div>
+    </form>
+</div>
+
+{% if s_date %}
+<div class="form-box">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px;">
+        <h3 style="margin:0; color:#2c3e50;">
+            Report: <span style="color:#2980b9;">{{ s_date }}</span> to <span style="color:#2980b9;">{{ e_date }}</span>
+        </h3>
+        <div style="display:flex; gap:10px; align-items:center;">
+            <span style="background:#e8f8f5; color:#27ae60; padding:8px 15px; border-radius:50px; font-weight:bold;">
+                Total: ₹{{ total }}
+            </span>
+            
+            <button onclick="exportTable('reportTable', 'Financial_Report_{{s_date}}')" class="btn" style="background-color: #27ae60; color: white;">
+                <i class="fas fa-file-excel"></i> Download Excel
+            </button>
+        </div>
+    </div>
+
+    <table id="reportTable">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Receipt No</th>
+                <th>Student Name</th>
+                <th>Class</th>
+                <th>Fee Type</th>
+                <th>Mode</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for t in transactions %}
+            <tr>
+                <td>{{ t.date }}</td>
+                <td>{{ t.receipt_no }}</td>
+                <td><b>{{ t.name }}</b></td>
+                <td>{{ t.class_name }}</td>
+                <td>{{ t.fee_type }}</td>
+                <td>{{ t.mode }}</td>
+                <td style="color:#27ae60; font-weight:bold;">₹{{ t.amount }}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="7" style="text-align:center; padding:20px;">No transactions found in this period.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div style="text-align:center; padding:50px; color:#999;">
+    <i class="fas fa-calendar-alt" style="font-size:50px; margin-bottom:15px;"></i>
+    <h3>Please select dates and click "Show Report" to see data & download Excel.</h3>
+</div>
+{% endif %}
+
+{% endblock %}

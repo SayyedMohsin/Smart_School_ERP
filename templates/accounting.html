@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="page-head">
+    <div>
+        <h2>💰 Accounting & Fee Collection</h2>
+        <small>Process Fees and View Logs</small>
+    </div>
+    <button onclick="exportTable('feeTable', 'Fee_Ledger')" class="btn btn-green">
+        <i class="fas fa-file-excel"></i> Export Ledger
+    </button>
+</div>
+
+<div style="display: flex; gap: 25px; flex-wrap: wrap;">
+    
+    <div class="form-box" style="flex: 1; min-width: 350px; height: fit-content; border-top: 4px solid var(--btn-blue);">
+        <h3 style="color: var(--secondary); margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+            <i class="fas fa-cash-register"></i> New Transaction
+        </h3>
+        
+        <form method="POST">
+            <label>Select Student:</label>
+            <select name="student_id" required>
+                <option value="">-- Search Student by Name --</option>
+                {% for s in students %}
+                <option value="{{ s.id }}">{{ s.name }} ({{ s.class_name }}) - Due: ₹{{ s.total_due }}</option>
+                {% endfor %}
+            </select>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                <div>
+                    <label>Fee Type:</label>
+                    <select name="fee_type">
+                        <option>School Fee</option>
+                        <option>Bus Fee</option>
+                        <option>Exam Fee</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Mode:</label>
+                    <select name="mode">
+                        <option>Cash</option>
+                        <option>Online</option>
+                        <option>Cheque</option>
+                    </select>
+                </div>
+            </div>
+
+            <label>Amount (₹):</label>
+            <input type="number" name="amount" placeholder="Enter Amount" required>
+
+            <button type="submit" class="btn btn-green" style="width:100%; margin-top:20px; justify-content:center; padding:12px;">
+                ✅ SUBMIT PAYMENT
+            </button>
+        </form>
+    </div>
+
+    <div class="form-box" style="flex: 2; min-width: 400px; border-top: 4px solid var(--btn-green);">
+        <h3 style="color: var(--secondary); margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 10px;">Recent Transactions</h3>
+        <table id="feeTable">
+            <thead>
+                <tr>
+                    <th>Rec No</th>
+                    <th>Student</th>
+                    <th>Type</th>
+                    <th>Mode</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for t in transactions %}
+                <tr>
+                    <td><span style="background:#eee; padding:2px 6px; border-radius:3px; font-size:12px;">{{ t.receipt_no }}</span></td>
+                    <td><b>{{ t.name }}</b><br><small style="color:#666;">{{ t.class_name }}</small></td>
+                    <td>{{ t.fee_type }}</td>
+                    <td>{{ t.mode }}</td>
+                    <td style="color: var(--btn-green); font-weight: bold;">₹{{ t.amount }}</td>
+                    <td>{{ t.date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

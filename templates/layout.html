@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Khatib School ERP</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <style>
+        :root {
+            --primary: #1a252f; /* Dark Slate (Header) */
+            --secondary: #2c3e50; /* Navy */
+            --accent: #f39c12; /* Orange Gold */
+            --bg-color: #ecf0f1;
+            
+            /* Button Colors */
+            --btn-blue: #2980b9;
+            --btn-green: #27ae60;
+            --btn-red: #c0392b;
+            --btn-dark: #34495e;
+        }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: var(--bg-color); color: #333; }
+        
+        /* HEADER */
+        .app-header {
+            background-color: var(--primary); color: white; padding: 15px 30px;
+            display: flex; align-items: center; gap: 20px; border-bottom: 5px solid var(--accent);
+        }
+        .logo { height: 70px; background: white; padding: 5px; border-radius: 5px; }
+        .brand h1 { margin: 0; font-size: 26px; text-transform: uppercase; font-weight: 900; letter-spacing: 1px; color: #fff; }
+        
+        /* NAVIGATION - High Contrast */
+        .navbar { background: var(--secondary); padding: 0 20px; display: flex; gap: 5px; overflow-x: auto; }
+        .nav-item {
+            color: white !important; text-decoration: none; padding: 15px 20px; font-weight: bold; font-size: 14px;
+            display: flex; align-items: center; gap: 8px; border-right: 1px solid rgba(255,255,255,0.1);
+        }
+        .nav-item:hover, .nav-item.active { background: var(--accent); color: #000 !important; }
+        .logout { margin-left: auto; background: var(--btn-red); border: none; }
+
+        .container { max-width: 1300px; margin: 30px auto; padding: 0 20px; min-height: 80vh; }
+
+        /* BUTTONS - STRICT COLOR RULES */
+        button, .btn {
+            border: none; border-radius: 4px; cursor: pointer; 
+            color: white !important; font-weight: bold; font-size: 14px; 
+            padding: 10px 18px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); transition: 0.2s;
+        }
+        button:hover, .btn:hover { opacity: 0.9; transform: translateY(-2px); }
+
+        /* Specific Button Classes */
+        .btn-blue { background-color: var(--btn-blue) !important; }
+        .btn-green { background-color: var(--btn-green) !important; }
+        .btn-red { background-color: var(--btn-red) !important; }
+        .btn-dark { background-color: var(--btn-dark) !important; }
+        .btn-orange { background-color: var(--accent) !important; color: #000 !important; }
+
+        /* TABLES */
+        table { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        th { background: var(--secondary); color: white; padding: 15px; text-align: left; text-transform: uppercase; font-size: 13px; }
+        td { padding: 12px 15px; border-bottom: 1px solid #ddd; }
+        
+        /* PAGE HEADERS */
+        .page-head {
+            background: white; padding: 20px; border-radius: 5px; border-left: 6px solid var(--secondary);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 25px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .page-head h2 { margin: 0; color: var(--secondary); text-transform: uppercase; font-weight: 800; }
+
+        /* FORMS */
+        .form-box { background: white; padding: 25px; border-radius: 5px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; background: #f9f9f9; }
+        label { font-weight: bold; color: var(--secondary); font-size: 13px; }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <img src="{{ url_for('static', filename='images/school.png') }}" class="logo">
+        <div class="brand">
+            <h1>SCHOOL PROFESSIONAL ERP</h1>
+            <small>Professional ERP V5.0</small>
+        </div>
+    </header>
+
+    <nav class="navbar">
+        <a href="/" class="nav-item"><i class="fas fa-chart-pie"></i> Dashboard</a>
+        <a href="/students" class="nav-item"><i class="fas fa-user-graduate"></i> Students</a>
+        <a href="/teachers" class="nav-item"><i class="fas fa-chalkboard-teacher"></i> Staff</a>
+        <a href="/accounting" class="nav-item"><i class="fas fa-file-invoice-dollar"></i> Accounting</a>
+        <a href="/reports" class="nav-item"><i class="fas fa-calendar-alt"></i> Reports</a>
+        <a href="/history" class="nav-item"><i class="fas fa-history"></i> History</a>
+        <a href="/logout" class="nav-item logout"><i class="fas fa-power-off"></i> Logout</a>
+    </nav>
+
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+    <script>
+        function exportTable(tableID, filename) {
+            var wb = XLSX.utils.table_to_book(document.getElementById(tableID), {sheet: "Sheet1"});
+            XLSX.writeFile(wb, filename + ".xlsx");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Principal Control Center</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .header { background: #27ae60; color: white; padding: 20px; text-align: center; }
+        .logo-main { width: 120px; border-radius: 10px; }
+        .stats-grid { display: flex; gap: 20px; justify-content: center; padding: 20px; }
+        .card { background: white; border-radius: 15px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); width: 300px; text-align: center; }
+        .progress-bar { background: #eee; height: 10px; border-radius: 5px; margin: 10px 0; }
+        .progress-fill { background: #2ecc71; height: 100%; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="/static/images/school_logo.jpg" class="logo-main">
+        <h1>School Level Monitoring</h1>
+    </div>
+
+    <div class="stats-grid">
+        <div class="card">
+            <h3>Fees Overall Status</h3>
+            <canvas id="feeChart"></canvas>
+            <p>Total: {{ fees['total'] }} | Paid: {{ fees['paid'] }}</p>
+        </div>
+        <div class="card">
+            <h3>Staff & Students</h3>
+            <p>Active Students: {{ s_count }}</p>
+            <p>Teachers: {{ t_count }}</p>
+        </div>
+    </div>
+
+    <script>
+        new Chart(document.getElementById('feeChart'), {
+            type: 'doughnut',
+            data: { labels: ['Paid', 'Remaining'], datasets: [{ data: [{{fees['paid']}}, {{fees['total'] - fees['paid']}}], backgroundColor: ['#2ecc71', '#e74c3c'] }] }
+        });
+    </script>
+</body>
+</html>
